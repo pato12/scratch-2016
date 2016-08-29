@@ -14,6 +14,25 @@
     <link rel="stylesheet" href="./css/framework7.ios.colors.min.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="./css/my-app.css">
+    <script>
+      var myMovementController;
+      function main() {
+         myMovementController = new movementController();
+       }
+      
+      function guardar() {
+       validar();
+       var monto = document.getElementsByName("monto")[0].value;
+       var fecha = document.getElementsByName("fecha")[0].value;
+       var motivo = document.getElementsByName("motivo")[0].value;
+       myMovementController.agregarMovimiento(monto, fecha, motivo, tipo);  
+      }
+      
+      function validar() {
+        
+      }
+      
+    </script>
   </head>
   <body>
     <!-- Status bar overlay for full screen mode (PhoneGap) -->
@@ -92,7 +111,7 @@
               <div class="content-block">
                 <div class="row">
                   <p class="buttons-row col-50"><a href="#" class="button button-big color-red">Cancelar</a></p>
-                  <p class="buttons-row col-50 "><a href="#" class="button button-big button-fill button-raised color-teal">Guardar</a></p>
+                  <p class="buttons-row col-50 "><a href="#" onclick="guardar()" class="button button-big button-fill button-raised color-teal">Guardar</a></p>
                 </div>
               </div>
             </div>
