@@ -10,6 +10,7 @@
         uglify = require('gulp-uglify'),
         sourcemaps = require('gulp-sourcemaps'),
         minifyCSS = require('gulp-minify-css'),
+        autoprefixer = require('gulp-autoprefixer'),
         tap = require('gulp-tap'),
         concat = require('gulp-concat'),
         jshint = require('gulp-jshint'),
@@ -18,9 +19,9 @@
         paths = {
             root: './',
             build: {
-                root: 'build/',
-                styles: 'build/css/',
-                scripts: 'build/js/'
+                root: 'app/build/',
+                styles: 'app/build/css/',
+                scripts: 'app/build/js/'
             },
             custom: {
                 root: 'custom/',
@@ -180,7 +181,28 @@
 
     });
 
-    gulp.task('build', ['scripts', 'styles-ios', 'styles-material'], function (cb) {
+    gulp.task('build-js', function () {
+      return gulp.src(['app/js/model/**/*.js', 'app/js/controller/**/*.js', 'app/js/main.js', 'app/js/**/*.js'])
+        .pipe(sourcemaps.init())
+        .pipe(concat('bundle.js'))
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish))
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('app/build'))
+        .pipe(connect.reload());
+    });
+
+    gulp.task('build-css', function () {
+      return gulp.src(['app/css/**/*.css'])
+        .pipe(autoprefixer())
+        .pipe(minifyCSS())
+        .pipe(concat('bundle.css'))
+        .pipe(gulp.dest('app/build'))
+        .pipe(connect.reload());
+    });
+
+    gulp.task('build', ['scripts', 'styles-ios', 'styles-material', 'build-js', 'build-css'], function (cb) {
         cb();
     });
 
@@ -192,6 +214,9 @@
         gulp.watch(paths.source.scripts, [ 'scripts' ]);
         gulp.watch(paths.source.styles.ios + '*.less', [ 'styles-ios' ]);
         gulp.watch(paths.source.styles.material + '*.less', [ 'styles-material' ]);
+
+        gulp.watch('app/js/**/*.js', [ 'build-js' ]);
+        gulp.watch('app/css/**/*.css', [ 'build-css' ]);
     });
 
     gulp.task('connect', function () {
@@ -206,7 +231,7 @@
         return gulp.src('./index.html').pipe(open({ uri: 'http://localhost:3000/index.html'}));
     });
 
-    gulp.task('server', [ 'watch', 'connect', 'open' ]);
+    gulp.task('server', [ 'build-js', 'build-css', 'watch', 'connect', 'open' ]);
 
     gulp.task('default', [ 'server' ]);
 

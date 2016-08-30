@@ -8,26 +8,25 @@
     "url": "https://github.com/nolimits4web/Framework7.git"
   },
   "keywords": [
-    "mobile", 
-    "framework", 
-    "ios 7", 
-    "ios7", 
-    "ios8", 
-    "ios 8", 
-    "iphone", 
-    "ipad", 
-    "apple", 
-    "phonegap", 
-    "native", 
-    "touch", 
-    "appstore", 
-    "app", 
-    "f7", 
-    "material", 
-    "android", 
-    "google", 
+    "mobile",
+    "framework",
+    "ios 7",
+    "ios7",
+    "ios8",
+    "ios 8",
+    "iphone",
+    "ipad",
+    "apple",
+    "phonegap",
+    "native",
+    "touch",
+    "appstore",
+    "app",
+    "f7",
+    "material",
+    "android",
+    "google",
     "googleplay"
-
   ],
   "author": "Vladimir Kharlampidi",
   "license": [
@@ -59,5 +58,8 @@
   },
   "scripts": {
     "test": "gulp test"
+  },
+  "dependencies": {
+    "gulp-autoprefixer": "^3.1.1"
   }
 }
