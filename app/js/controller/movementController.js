@@ -7,3 +7,9 @@ movementController.prototype.agregarMovimiento = function(monto, fecha, motivo, 
     var movimiento = new movement(monto, fecha, motivo, tipo);
     movimiento.save();
 };
+
+movementController.prototype.cargarGrilla = function() {
+    var movements = almacenamientoMovements.get();
+    return movements;
+};
+
