@@ -38,8 +38,9 @@ myApp.onPageInit('movements', function (page) {
     // y agrego el movimiento
     // el `tipo` viene dado por la url ?tipo=ingreso
     // y se optiene con `page.query.tipo`
-
-    myMovementController.agregarMovimiento(data.monto, data.fecha, data.motivo, page.query.tipo);
+    if(!myMovementController.agregarMovimiento(data.monto, data.fecha, data.motivo, page.query.tipo)) {
+        return;
+    }
 
     // redirijo al index.html
     mainView.router.loadPage('index.html');
