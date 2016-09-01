@@ -4,11 +4,17 @@ var movementController = function() {
     //this.initialize();
 };
 
-/*logica que agrega un movimiento usando al modelo*/
+/*logica que agrega un movimiento usando al modelo.
+  Genera una rutina de validacion que, si no es pasada con exito, corta
+  la ejecucion del procedimiento.
+*/
 movementController.prototype.agregarMovimiento = function(monto, fecha, motivo, tipo) {
+    if (!this.validar(monto, fecha, motivo)){
+      return false;
+    }
     var movimiento = new movement(monto, fecha, motivo, tipo);
-    this.validar(monto, fecha, motivo);
     movimiento.save();
+    return true;
 };
 
 movementController.prototype.cargarGrilla = function() {
@@ -18,15 +24,18 @@ movementController.prototype.cargarGrilla = function() {
 
 /*
   logica para validar que todos los campos de la  UI de ingresos y egresos
-  esten completos y sean correctos
+  esten completos y sean correctos.
+  Retorna true si pasa todas las validaciones.
+  Retorna false si no cumple con alguna de ellas.
 */
 movementController.prototype.validar = function (monto, fecha, motivo) {
   if (monto === '' || motivo === '') {
     myApp.alert("Debe ingresar todos los campos!");
-    return;
+    return false;
   }
   if (monto < 0) {
     myApp.alert("Debe ingresar monto positivo!");
-    return;
+    return false;
   }
+  return true;
 };
