@@ -9,25 +9,35 @@
     <!-- Contenido de la pagina -->
     <div class="page-content">
         <div class="content-block">
-            <div class="row no-gutter">
-                <table id="Tabla-Movimientos" border="1">
-                    <tr>
-                        <td>
-                            <div class="col-33">Ingreso</div>
-                        </td>
-                        <td>
-                            <div class="col-33">Egreso</div>
-                        </td>
-                        <td>
-                            <div class="col-33">Saldo</div>
-                        </td>
-                    </tr>
+            
+            <!-- Listado de movimientos -->
+            <div class="list-block">
+                <ul>
+                    <li>
+                        <div class="" style="padding: 15px 0px; text-align: center; background-color: #eee;">
+                            <div class="row">
+                                <div class="col-33">Ingresos</div>
+                                <div class="col-33">Egresos</div>
+                                <div class="col-33">Saldo</div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- CODIGO PARA REPRESENTAR UNA FILA, se tiene que autogenerar
+                    <li class="swipeout">
+                        <div class="swipeout-content item-content">
+                            <div class="item-inner">Ingresos</div>
+                        </div>
+                        <div class="swipeout-actions-right">
+                            <a href="#" class="action1 bg-blue">Modificar</a>
+                            <a href="#" class="action2 swipeout-delete bg-red" data-confirm="Are you sure want to delete?">Eliminar</a>
+                        </div>
+                    </li> -->
+                </ul>
             </div>
-            </table>
 
             <div class="content-block">
                 <div class="row">
-                    <p><a href="index.html" class="button button-round active">Salir</a></p>
+                    <p><a href="index.html" class="back button button-round active">Salir</a></p>
                 </div>
             </div>
         </div>
