@@ -17,6 +17,21 @@ movementController.prototype.agregarMovimiento = function(monto, fecha, motivo, 
     return true;
 };
 
+movementController.prototype.editarMovimiento = function(id, monto, fecha, motivo) {
+    if (!this.validar(monto, fecha, motivo)){
+      return false;
+    }
+    var movimiento = almacenamientoMovements.getById(id);
+    
+    movimiento.monto = monto;
+    movimiento.fecha = fecha;
+    movimiento.motivo = motivo;
+
+    almacenamientoMovements.saveById(movimiento);
+
+    return true;
+};
+
 movementController.prototype.cargarGrilla = function() {
     var movements = almacenamientoMovements.get();
     return movements;

@@ -1,35 +1,19 @@
-myApp.onPageInit('movements', function (page) {
-    var myMovementController = new movementController();
-    //Funcion para grear el reporte, toma como parametros los array de ingresos y egresos
-    function crearReporte() {
-        var ingresosEgresos = myMovementController.crearReporte();
-        var movimientos = [];
-        //Concatena los arrays
-        movimientos.concat(ingresosEgresos);
-        //defino la lógica de ordenamiento, para ponerlos por fecha
-        movimientos.sort(function (a, b) { return ingresos.fecha - egresos.fecha });
+myApp.onPageInit('Movements-Report', function(page) {
+	var myMovementsReportController = new movementsReportController();
+	var listadoItemReports = myMovementsReportController.calcularItemsReports();
 
-        //creo la grilla
+	var listadoView = $$('#listadoItemsReporte');
 
-    /*    var grilla = '#Tabla-Movimientos';
-        var saldo = 0;
-        for (var index = 0; index < movimientos.length; index++) {
-            var element = movimientos[index];
-            if (element.getTipo == "Ingreso") {
-                saldo += element.getMonto;
-                grilla += <tr><td> <div class="col-33">element.getMonto</div> </td><td>  <div class="col-33"></div> </td> <td><div class="col-33">Saldo</div> </td></tr>
+	for (var i in listadoItemReports) {
+		var item = listadoItemReports[i];
+		var html = Template7.templates.reporteItemTemplate(item.toJSON());
 
-            } else {
-                saldo -= element.getMonto;
+		listadoView.append(html);
+	}
 
-                grilla += <tr><td> <div class="col-33"></div> </td><td>  <div class="col-33">element.getMonto</div> </td> <td><div class="col-33">Saldo</div> </td></tr>
 
-            }
-
-        }*/
-    }
-
-    // aca llamaria al metodo... solo si no me limitara...
+	$$('.swipeout').on('deleted', function(e) {
+		var id = $$(this).data('id');
+		myMovementsReportController.eliminarMovimiento(id);
+	});
 });
-
-
