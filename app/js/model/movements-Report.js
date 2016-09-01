@@ -1,19 +1,10 @@
-var almacenamientoMovements = {
-
-  get: function () {
-    var jsonText = localStorage.Movements || '{"ingresos": [], "egresos": []}';
-    return JSON.parse(jsonText);
-  }
-
-};
-
 var movementsReport = function (ingreso, egresos, saldo, tipo, monto) {
  if (this.tipo = "ingreso") {
   this.ingreso = monto;
-     
+
  } else {
   this.egresos = monto;
-     
+
  }
   this.saldo = 0;
 };
