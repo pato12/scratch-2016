@@ -1,3 +1,4 @@
+/*inicializacion de la UI de movimientos para ingresos y egresos*/
 myApp.onPageInit('movements', function (page) {
   var myMovementController = new movementController();
   var titulo;
@@ -11,6 +12,9 @@ myApp.onPageInit('movements', function (page) {
     input: '#calendario-input',
     dateFormat: 'dd M yyyy'
   });
+
+  //seteo fecha actual al calendario por default
+  myCalendario.setValue([new Date()]);
 
   // cambio el titulo de la pagina
   $$('#movimientoTitulo').html(titulo);
