@@ -1,3 +1,5 @@
+
+//Constructor de UNA fila de la tabla de reportes de gastos
 var itemReport = function (tipo, monto, saldo, id) {
   this.ingreso = '-';
   this.egreso = '-';
@@ -9,7 +11,7 @@ var itemReport = function (tipo, monto, saldo, id) {
   else
     this.egreso = monto;
 };
-
+// formatear la fila a un Json
 itemReport.prototype.toJSON = function () {
   return {
     ingreso: (this.ingreso !== '-' ? '$' + this.ingreso : '-'),
