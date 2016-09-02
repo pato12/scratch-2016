@@ -1,3 +1,4 @@
+//Genera las filas que contienen los datos del reporte
 myApp.onPageInit('Movements-Report', function(page) {
 	var myMovementsReportController = new movementsReportController();
 	var listadoItemReports = myMovementsReportController.calcularItemsReports();
@@ -11,7 +12,7 @@ myApp.onPageInit('Movements-Report', function(page) {
 		listadoView.append(html);
 	}
 
-
+//Comienza el proceso de borrado de un movimiento cuando se preciona el boton "deleted"
 	$$('.swipeout').on('deleted', function(e) {
 		var id = $$(this).data('id');
 		myMovementsReportController.eliminarMovimiento(id);
