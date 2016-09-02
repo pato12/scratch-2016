@@ -1,3 +1,4 @@
+// Toma como dato las dos listas (igreso y egreso) y devuelve un único array compuesto por movimientos ordenado por fecha en forma descendente 
 var movementsReportController = function () {
   this.listadoMovements = [];
 
@@ -12,7 +13,7 @@ var movementsReportController = function () {
     return Date.parse(b.fecha) - Date.parse(a.fecha);
   });
 };
-
+//  Toma como parámetro el array de movimientos ordenados y devuelve un array con las filas del reporte
 movementsReportController.prototype.calcularItemsReports = function () {
   var saldo = 0;
   var listadoItemReport = [];
@@ -32,7 +33,7 @@ movementsReportController.prototype.calcularItemsReports = function () {
 
   return listadoItemReport;
 };
-
+// Elimina un movimiento
 movementsReportController.prototype.eliminarMovimiento = function (id) {
   almacenamientoMovements.deleteById(id);
 };
