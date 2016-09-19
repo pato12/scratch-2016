@@ -1,11 +1,20 @@
-/*inicializacion de la UI de movimientos para ingresos y egresos*/
-myApp.onPageInit('movements', function (page) {
+myApp.onPageInit('movementsEdit', function (page) {
   var myMovementController = new movementController();
-  var titulo;
   var myCalendario;
+  var movimiento;
+  var id;
 
-  // defino el titulo segun el tipo
-  titulo = page.query.tipo == 'ingreso'? 'Registar Ingreso' : 'Registar Egreso';
+  // obtengo el id
+  id = page.query.id;
+
+  // si el id no es valido, lo redirijo al index
+  if(!id) {
+    mainView.router.loadPage('index.html');
+    return;
+  }
+
+  // busco por el id
+  movimiento = almacenamientoMovements.getById(id);
 
   // inicializo el calendario
   myCalendario = myApp.calendar({
@@ -13,15 +22,13 @@ myApp.onPageInit('movements', function (page) {
     dateFormat: 'dd M yyyy'
   });
 
-  //seteo fecha actual al calendario por default
-  myCalendario.setValue([new Date()]);
-
-  // cambio el titulo de la pagina
-  $$('#movimientoTitulo').html(titulo);
 
   // agrego el evento on click del boton de agregar
   $$('#agregarMovimiento').on('click', guardar);
 
+
+  myApp.formFromJSON('#form-movement', movimiento);
+  myCalendario.setValue([new Date(movimiento.fecha)]);
 
   // funciones auxiliares!
 
@@ -35,10 +42,8 @@ myApp.onPageInit('movements', function (page) {
     data.fecha = (new Date(myCalendario.value[0])).toString();
 
 
-    // y agrego el movimiento
-    // el `tipo` viene dado por la url ?tipo=ingreso
-    // y se optiene con `page.query.tipo`
-    if(!myMovementController.agregarMovimiento(data.monto, data.fecha, data.motivo, page.query.tipo)) {
+    // y modifico el movimiento
+    if(!myMovementController.editarMovimiento(id, data.monto, data.fecha, data.motivo)) {
         return;
     }
 
@@ -48,7 +53,7 @@ myApp.onPageInit('movements', function (page) {
 
     // y mostramos una notificacion!
     myApp.addNotification({
-        message: 'Se agregó correctamente.'
+        message: 'Se modificó correctamente.'
     });
   }
 });
