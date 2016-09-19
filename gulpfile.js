@@ -14,6 +14,8 @@
         tap = require('gulp-tap'),
         concat = require('gulp-concat'),
         jshint = require('gulp-jshint'),
+        mocha = require('gulp-mocha'),
+        util = require('gulp-util'),
         stylish = require('jshint-stylish'),
         fs = require('fs'),
         paths = {
@@ -202,6 +204,17 @@
         .pipe(connect.reload());
     });
 
+    gulp.task('test', function () {
+      util.log("Comenzando..");
+      return gulp.src(['app/test/**/*.js'], {
+          read: false
+        })
+        .pipe(mocha({
+          reporter: 'spec'
+        }))
+        .on('error', util.log);
+    });
+
     gulp.task('build', ['scripts', 'styles-ios', 'styles-material', 'build-js', 'build-css'], function (cb) {
         cb();
     });
@@ -234,6 +247,4 @@
     gulp.task('server', [ 'build-js', 'build-css', 'watch', 'connect', 'open' ]);
 
     gulp.task('default', [ 'server' ]);
-
-    gulp.task('test', [ 'build' ]);
 })();
