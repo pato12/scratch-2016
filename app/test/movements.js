@@ -1,15 +1,8 @@
-var assert = require('assert');
-var movementController = require('../js/controller/movementController');
+var myApp = {alert: function(){}};
 
-console.log(typeof movementController);
+QUnit.test( "El controller tiene que fallar cuando se agrega un movimiento invalido", function( assert ) {
+  var controller = new movementController();
+  var resultado = controller.agregarMovimiento(-10, new Date().toString(), 'a', 'tipo');
 
-describe('Home page', function () {
-  it('should load the page properly', function () {
-    assert.ok(true);
-  });
-
-  it('should navigate to login', function () {
-    assert.ok(true);
-  });
-
+  assert.ok( !resultado, "Paso!" );
 });
