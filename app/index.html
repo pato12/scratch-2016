@@ -73,17 +73,17 @@
                 <div class="row">
                   <div class="col-33">
                     <div class="item-inner">
-                      <div class="text-center w-full">{{ingreso}}</div>
-                    </div>
-                  </div>
-                  <div class="col-33">
-                    <div class="item-inner">
-                      <div class="text-center w-full color-red">{{egreso}}</div>
+                       <div class="text-center w-full {{#if egreso}}color-red{{/if}}">{{monto}}</div>
                     </div>
                   </div>
                   <div class="col-33">
                     <div class="item-inner">
                       <div class="text-center w-full {{#if saldoNegativo}}color-red{{/if}}">{{saldo}}</div>
+                    </div>
+                  </div>
+                  <div class="col-33">
+                    <div class="item-inner">
+                       <div class="text-center w-full">{{fecha}}</div>
                     </div>
                   </div>
                 </div>
