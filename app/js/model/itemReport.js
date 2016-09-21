@@ -3,7 +3,7 @@
 var itemReport = function (tipo, monto, saldo, id, fecha) {
   this.monto = monto;
   this.saldo = saldo;
-  this.fecha = fecha;
+  this.fecha = new Date(fecha).toLocaleDateString();
   this.tipo = tipo;
   this.id = id;
 
