@@ -9,6 +9,9 @@ var movementsReportController = function () {
   this.listadoMovements = this.listadoMovements.filter(function(movimiento){
     return (Date.now() - 3600 * 24 * 31 * 1000) < Date.parse(movimiento.fecha);
   });
+  this.listadoMovements = this.listadoMovements.filter(function(movimiento){
+    return Date.now() > Date.parse(movimiento.fecha);
+  });
   this.listadoMovements.sort(function (a, b) {
     return Date.parse(b.fecha) - Date.parse(a.fecha);
   });
@@ -26,7 +29,7 @@ movementsReportController.prototype.calcularItemsReports = function () {
     else
       saldo -= parseFloat(movimiento.monto);
 
-    listadoItemReport.push(new itemReport(movimiento.tipo, movimiento.monto, saldo, movimiento.id));
+    listadoItemReport.push(new itemReport(movimiento.tipo, movimiento.monto, saldo, movimiento.id, movimiento.fecha));
   }
 
   listadoItemReport.reverse();
