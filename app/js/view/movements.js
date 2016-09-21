@@ -48,7 +48,8 @@ myApp.onPageInit('movements', function (page) {
 
     // y mostramos una notificacion!
     myApp.addNotification({
-        message: 'Se agregó correctamente.'
+        message: 'Se agregó correctamente.',
+        hold: 3000
     });
   }
 });

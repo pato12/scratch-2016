@@ -53,7 +53,8 @@ myApp.onPageInit('movementsEdit', function (page) {
 
     // y mostramos una notificacion!
     myApp.addNotification({
-        message: 'Se modificó correctamente.'
+        message: 'Se modificó correctamente.',
+        hold: 3000
     });
   }
 });
