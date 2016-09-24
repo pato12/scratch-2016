@@ -14,7 +14,7 @@
         tap = require('gulp-tap'),
         concat = require('gulp-concat'),
         jshint = require('gulp-jshint'),
-        mocha = require('gulp-mocha'),
+        qunit = require('gulp-qunit'),
         util = require('gulp-util'),
         stylish = require('jshint-stylish'),
         fs = require('fs'),
@@ -266,9 +266,13 @@
         return gulp.src('./index.html').pipe(open({ uri: 'http://localhost:3000/app/test/index.html'}));
     });
 
+    gulp.task('test', ['build-test', 'build-js-core'], function () {
+      return gulp.src('./app/test/index.html').pipe(qunit());
+    });
+
     gulp.task('server', [ 'build-js', 'build-js-core', 'build-css', 'watch', 'connect', 'open' ]);
 
     gulp.task('default', [ 'server' ]);
 
-    gulp.task('test', ['build-test', 'build-js-core', 'watch-test', 'connect', 'open-test']);
+    gulp.task('test-web', ['build-test', 'build-js-core', 'watch-test', 'connect', 'open-test']);
 })();
