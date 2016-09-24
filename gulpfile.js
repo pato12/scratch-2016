@@ -14,6 +14,8 @@
         tap = require('gulp-tap'),
         concat = require('gulp-concat'),
         jshint = require('gulp-jshint'),
+        qunit = require('gulp-qunit'),
+        util = require('gulp-util'),
         stylish = require('jshint-stylish'),
         fs = require('fs'),
         paths = {
@@ -181,10 +183,10 @@
 
     });
 
-    gulp.task('build-js', function () {
-      return gulp.src(['app/js/model/**/*.js', 'app/js/controller/**/*.js', 'app/js/main.js', 'app/js/**/*.js'])
+    gulp.task('build-js-core', function () {
+      return gulp.src(['app/js/model/**/*.js', 'app/js/controller/**/*.js'])
         .pipe(sourcemaps.init())
-        .pipe(concat('bundle.js'))
+        .pipe(concat('bundle-core.js'))
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(uglify())
@@ -192,6 +194,19 @@
         .pipe(gulp.dest('app/build'))
         .pipe(connect.reload());
     });
+
+    gulp.task('build-js', function () {
+      return gulp.src(['app/js/main.js', 'app/js/**/*.js'])
+        .pipe(sourcemaps.init())
+        .pipe(concat('bundle-view.js'))
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish))
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('app/build'))
+        .pipe(connect.reload());
+    });
+
 
     gulp.task('build-css', function () {
       return gulp.src(['app/css/**/*.css'])
@@ -202,7 +217,19 @@
         .pipe(connect.reload());
     });
 
-    gulp.task('build', ['scripts', 'styles-ios', 'styles-material', 'build-js', 'build-css'], function (cb) {
+    gulp.task('build-test', function () {
+      return gulp.src(['app/test/**/*.js'])
+        .pipe(sourcemaps.init())
+        .pipe(concat('tests.js'))
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish))
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('app/build'))
+        .pipe(connect.reload());
+    });
+
+    gulp.task('build', ['scripts', 'styles-ios', 'styles-material', 'build-js-core', 'build-js', 'build-css', 'build-test'], function (cb) {
         cb();
     });
 
@@ -215,8 +242,12 @@
         gulp.watch(paths.source.styles.ios + '*.less', [ 'styles-ios' ]);
         gulp.watch(paths.source.styles.material + '*.less', [ 'styles-material' ]);
 
-        gulp.watch('app/js/**/*.js', [ 'build-js' ]);
+        gulp.watch('app/js/**/*.js', [ 'build-js-core', 'build-js' ]);
         gulp.watch('app/css/**/*.css', [ 'build-css' ]);
+    });
+    gulp.task('watch-test', function () {
+        gulp.watch('app/js/**/*.js', [ 'build-js-core', 'build-js' ]);
+        gulp.watch('app/test/**/*.js', ['build-test' ]);
     });
 
     gulp.task('connect', function () {
@@ -231,9 +262,17 @@
         return gulp.src('./index.html').pipe(open({ uri: 'http://localhost:3000/index.html'}));
     });
 
-    gulp.task('server', [ 'build-js', 'build-css', 'watch', 'connect', 'open' ]);
+    gulp.task('open-test', function () {
+        return gulp.src('./index.html').pipe(open({ uri: 'http://localhost:3000/app/test/index.html'}));
+    });
+
+    gulp.task('test', ['build-test', 'build-js-core'], function () {
+      return gulp.src('./app/test/index.html').pipe(qunit());
+    });
+
+    gulp.task('server', [ 'build-js', 'build-js-core', 'build-css', 'watch', 'connect', 'open' ]);
 
     gulp.task('default', [ 'server' ]);
 
-    gulp.task('test', [ 'build' ]);
+    gulp.task('test-web', ['build-test', 'build-js-core', 'watch-test', 'connect', 'open-test']);
 })();
