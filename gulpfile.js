@@ -266,7 +266,7 @@
         return gulp.src('./index.html').pipe(open({ uri: 'http://localhost:3000/app/test/index.html'}));
     });
 
-    gulp.task('test', function () {
+    gulp.task('test', ['build-test', 'build-js-core'], function () {
       return gulp.src('./app/test/index.html').pipe(qunit());
     });
 
