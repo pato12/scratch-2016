@@ -22,7 +22,6 @@ myApp.onPageInit('movements', function (page) {
   // agrego el evento on click del boton de agregar
   $$('#agregarMovimiento').on('click', guardar);
 
-
   // funciones auxiliares!
 
   function guardar() {
@@ -51,5 +50,16 @@ myApp.onPageInit('movements', function (page) {
         message: 'Se agregó correctamente.',
         hold: 3000
     });
+  }
+});
+
+myApp.onPageAfterAnimation("movements", function(page){
+  //vaciar antes de llenarlo
+  $$('#categorias option').remove();
+  
+  //llenar
+  var listado = almacenamientoCategorias.get();
+  for (var i in listado){
+    myApp.smartSelectAddOption('#categorias', '<option value="' + listado[i].id + '">' + listado[i].nombre + '</option>');
   }
 });
