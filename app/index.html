@@ -102,6 +102,27 @@
         </li>
     </script>
 
+    <script type="text/template7" id="categoriaItem">
+        <li class="swipeout swipeout-categoria" data-id="{{id}}">
+           <div class="swipeout-content">
+              <label class="label-radio item-content">
+                 <input type="radio" name="ks-media-radio" value="{{id}}" {{#if esDefault}} checked="checked" {{/if}}/>
+                 <div class="item-inner">
+                    <div class="item-title-row">
+                       <div class="item-title">{{nombre}}</div>
+                    </div>
+                    <div class="item-text">{{descripcion}}</div>
+                 </div>
+                 <div class="item-after"><i class="icon-form-radio"></i></div>
+              </label>
+           </div>
+           <div class="swipeout-actions-right">
+              <a href="#" class="action2 swipeout-delete bg-red" data-confirm="¿Seguro de eliminar?">Eliminar</a>
+           </div>
+        </li>
+    </script>
+
+
     <script type="text/javascript" src="build/js/framework7.js"></script>
     <script type="text/javascript" src="build/bundle-core.js"></script>
     <script type="text/javascript" src="build/bundle-view.js"></script>
