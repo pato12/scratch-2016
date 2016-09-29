@@ -1,6 +1,7 @@
 //Genera las filas que contienen los datos del reporte
 myApp.onPageInit('Movements-Report', function(page) {
-	var myMovementsReportController = new movementsReportController();
+	var movements = almacenamientoMovements.get();
+	var myMovementsReportController = new movementsReportController(movements);
 	var listadoItemReports = myMovementsReportController.calcularItemsReports();
 
 	var listadoView = $$('#listadoItemsReporte');
