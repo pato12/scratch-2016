@@ -1,19 +1,20 @@
-var categoria = function(nombre, descripcion, esDefault) {
-    this.nombre = nombre;
-    this.descripcion = descripcion;
-    this.esDefault = esDefault;
-    this.id = almacenamientoCategorias.getNextId();
+var categoria = function (nombre, descripcion, esDefault) {
+  this.nombre = nombre;
+  this.descripcion = descripcion;
+  this.esDefault = esDefault;
+  this.id = almacenamientoCategorias.getNextId();
 };
 
-categoria.prototype.toJSON = function() {
-    return {
-        "nombre": this.nombre,
-        "descripcion": this.descripcion,
-        "esDefault": this.esDefault
-    };
+categoria.prototype.toJSON = function () {
+  return {
+    "nombre": this.nombre,
+    "descripcion": this.descripcion,
+    "esDefault": this.esDefault,
+    "id": this.id
+  };
 };
 
-categoria.prototype.save = function() {
+categoria.prototype.save = function () {
   var jsonCategoria = this.toJSON();
   var categorias = almacenamientoCategorias.get();
 
@@ -23,14 +24,14 @@ categoria.prototype.save = function() {
 };
 
 var almacenamientoCategorias = {
-  save: function(json) {
+  save: function (json) {
     localStorage.Categorias = JSON.stringify(json);
   },
-  get: function() {
+  get: function () {
     var jsonText = localStorage.Categorias || '[]';
     return JSON.parse(jsonText);
   },
-  getNextId: function() {
+  getNextId: function () {
     var lastId = localStorage.CategoriasId ||  '0';
 
     lastId = parseInt(lastId) + 1;
@@ -39,7 +40,7 @@ var almacenamientoCategorias = {
 
     return lastId;
   },
-  getById: function(id) {
+  getById: function (id) {
     var categorias = this.get();
     var listado = categorias;
 
@@ -50,7 +51,7 @@ var almacenamientoCategorias = {
 
     return null;
   },
-  saveById: function(categoria) {
+  saveById: function (categoria) {
     if (!categoria.id) {
       return false;
     }
@@ -66,19 +67,30 @@ var almacenamientoCategorias = {
 
     this.save(listado);
   },
-  deleteById: function(id) {
+  deleteById: function (id) {
     var categorias = this.get();
 
-    for (var k in categorias) {
-      for (var i in categorias[k]) {
-        if (categorias[k][i].id == id) {
-          categorias[k].splice(i, 1);
-          break;
-        }
+    for (var i in categorias) {
+      if (categorias[i].id == id) {
+        categorias.splice(i, 1);
+        break;
       }
     }
-    
+
     this.save(categorias);
+  },
+  comprobarCategoria: function (nombre) {
+    var categorias = this.get();
+
+    for (var i in categorias) {
+      if (categorias[i].nombre == nombre) {
+        return {nuevo: false, categoria: categorias[i]};
+      }
+    }
+
+    var cat = new categoria(nombre, '', false);
+    cat.save();
+
+    return {nuevo: true, categoria: cat.toJSON()};
   }
 };
-
