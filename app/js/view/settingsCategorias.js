@@ -3,14 +3,28 @@ myApp.onPageBeforeAnimation('SettingsCategorias', function(page){
 
   var listadoView = $$('#listadoCategorias');
 
-  $$('#listadoCategorias li').remove();
+  var longitud = listado.length;
 
-  for (var i in listado) {
+  $$('#listadoCategorias li').remove();
+if (longitud===1) {
+   for (var i in listado) {
+    var item = listado[i];
+    var html = Template7.templates.categoriaItemNotRemovable(item);
+
+    listadoView.append(html);
+  }
+
+  
+} else {
+    for (var i in listado) {
     var item = listado[i];
     var html = Template7.templates.categoriaItem(item);
 
     listadoView.append(html);
   }
+  
+}
+
 
   $$('#listadoCategorias input').on('change', cambiarDefault);
   $$('.swipeout-categoria').on('deleted', borrarCategoria);
@@ -29,9 +43,12 @@ myApp.onPageBeforeAnimation('SettingsCategorias', function(page){
 
   function borrarCategoria (e) {
     var id = $$(this).data('id');
+    var categorias = almacenamientoCategorias.get();
+    if (categorias.length===1) {
+      return;
+    }    
 
     almacenamientoCategorias.deleteById(id);
-    var categorias = almacenamientoCategorias.get();
     categorias[0].esDefault= "true";
   }
 
