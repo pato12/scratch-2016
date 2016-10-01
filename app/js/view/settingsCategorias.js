@@ -1,4 +1,4 @@
-myApp.onPageBeforeAnimation('SettingsCategorias', function(page){
+myApp.onPageBeforeAnimation('SettingsCategorias', function (page) {
   var listado = almacenamientoCategorias.get();
 
   var listadoView = $$('#listadoCategorias');
@@ -6,24 +6,24 @@ myApp.onPageBeforeAnimation('SettingsCategorias', function(page){
   var longitud = listado.length;
 
   $$('#listadoCategorias li').remove();
-if (longitud===1) {
-   for (var i in listado) {
-    var item = listado[i];
-    var html = Template7.templates.categoriaItemNotRemovable(item);
-
-    listadoView.append(html);
-  }
-
-  
-} else {
+  if (longitud === 1) {
     for (var i in listado) {
-    var item = listado[i];
-    var html = Template7.templates.categoriaItem(item);
+      var item = listado[i];
+      var html = Template7.templates.categoriaItemNotRemovable(item);
 
-    listadoView.append(html);
+      listadoView.append(html);
+    }
+
+
+  } else {
+    for (var i in listado) {
+      var item = listado[i];
+      var html = Template7.templates.categoriaItem(item);
+
+      listadoView.append(html);
+    }
+
   }
-  
-}
 
 
   $$('#listadoCategorias input').on('change', cambiarDefault);
@@ -34,22 +34,31 @@ if (longitud===1) {
     var categorias = almacenamientoCategorias.get();
 
 
-    for(var i in categorias) {
+    for (var i in categorias) {
       categorias[i].esDefault = categoriaId == categorias[i].id;
     }
 
     almacenamientoCategorias.save(categorias);
   }
 
-  function borrarCategoria (e) {
+  function borrarCategoria(e) {
     var id = $$(this).data('id');
+    var defecto = $$(this).data('esDefault');
     var categorias = almacenamientoCategorias.get();
-    if (categorias.length===1) {
+    if (categorias.length === 1) {
       return;
-    }    
+    }
+    if (defecto) {
+      almacenamientoCategorias.deleteById(id);
+      var categorias = almacenamientoCategorias.get();
+      categorias[0].esDefault = 'true';
+       almacenamientoCategorias.save(categorias);
 
-    almacenamientoCategorias.deleteById(id);
-    categorias[0].esDefault= "true";
+    } else {
+      almacenamientoCategorias.deleteById(id);
+
+    }
+
   }
 
 });
