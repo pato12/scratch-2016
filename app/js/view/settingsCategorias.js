@@ -30,8 +30,9 @@ myApp.onPageBeforeAnimation('SettingsCategorias', function(page){
   function borrarCategoria (e) {
     var id = $$(this).data('id');
 
-    /// TODO Antes de borrar, hay que cambiar los movimientos del tipo al default
     almacenamientoCategorias.deleteById(id);
+    var categorias = almacenamientoCategorias.get();
+    categorias[0].esDefault= "true";
   }
 
 });
