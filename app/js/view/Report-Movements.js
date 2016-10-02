@@ -3,7 +3,8 @@ myApp.onPageBeforeAnimation('Movements-Report', function(page) {
 	render();
 
 	function render() {
-		var myMovementsReportController = new movementsReportController();
+		var listado = almacenamientoMovements.get();
+		var myMovementsReportController = new movementsReportController(listado);
 		var listadoItemReports = myMovementsReportController.calcularItemsReports();
 
 		var listadoView = $$('#listadoItemsReporte');
