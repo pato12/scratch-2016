@@ -23,16 +23,22 @@ categoria.prototype.save = function () {
   almacenamientoCategorias.save(categorias);
 };
 
+categoria.default = {nombre: 'General', descripcion: 'Categoria general', esDefault: true, id: -1};
+
 var almacenamientoCategorias = {
   save: function (json) {
     localStorage.Categorias = JSON.stringify(json);
   },
   get: function () {
+    var defaultCategoria = [categoria.default];
     var jsonText = localStorage.Categorias || '[]';
-    return JSON.parse(jsonText);
+    var parse = JSON.parse(jsonText);
+
+    if(!parse.length) return defaultCategoria;
+    else return parse;
   },
   getNextId: function () {
-    var lastId = localStorage.CategoriasId ||  '0';
+    var lastId = localStorage.CategoriasId ||  '1';
 
     lastId = parseInt(lastId) + 1;
 
@@ -79,8 +85,23 @@ var almacenamientoCategorias = {
 
     this.save(categorias);
   },
+  getDefault: function () {
+    var categorias = this.get();
+
+    for (var i in categorias) {
+      if (categorias[i].esDefault) {
+        return categorias[i];
+      }
+    }
+
+    return null;
+  },
   comprobarCategoria: function (nombre) {
     var categorias = this.get();
+
+    if(nombre.trim() == '') {
+      return {nuevo: false, categoria: this.getDefault()};
+    }
 
     for (var i in categorias) {
       if (categorias[i].nombre == nombre) {
