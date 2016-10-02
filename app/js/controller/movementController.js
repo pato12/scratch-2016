@@ -45,7 +45,7 @@ movementController.prototype.cargarGrilla = function() {
   Retorna false si no cumple con alguna de ellas.
 */
 movementController.prototype.validar = function (monto, fecha, motivo) {
-  if (monto.trim() === '') {
+  if (monto.toString().trim() === '') {
     myApp.alert("Debe ingresar todos los campos!");
     return false;
   }
