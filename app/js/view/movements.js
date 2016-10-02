@@ -11,7 +11,12 @@ myApp.onPageInit('movements', function (page) {
   // inicializo el calendario
   myCalendario = myApp.calendar({
     input: '#calendario-input',
-    dateFormat: 'dd M yyyy'
+    dateFormat: 'dd M yyyy',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['En', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom', 'Lu', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+    toolbarCloseText: 'Hecho'
   });
 
   //seteo fecha actual al calendario por default
@@ -64,7 +69,7 @@ myApp.onPageInit('movements', function (page) {
     if (!myMovementController.agregarMovimiento(data.monto, data.fecha, data.motivo, data.categoria, page.query.tipo)) {
 
       // si esta mal algo, borro la categoria que se creo
-      if(comprobarCategoria.nuevo) {
+      if (comprobarCategoria.nuevo) {
         almacenamientoCategorias.deleteById(data.categoria);
       }
 
