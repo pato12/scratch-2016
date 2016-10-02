@@ -8,24 +8,25 @@ var movementController = function() {
   Genera una rutina de validacion que, si no es pasada con exito, corta
   la ejecucion del procedimiento.
 */
-movementController.prototype.agregarMovimiento = function(monto, fecha, motivo, tipo) {
+movementController.prototype.agregarMovimiento = function(monto, fecha, motivo, categoria, tipo) {
     if (!this.validar(monto, fecha, motivo)){
       return false;
     }
-    var movimiento = new movement(monto, fecha, motivo, tipo);
+    var movimiento = new movement(monto, fecha, motivo, categoria, tipo);
     movimiento.save();
     return true;
 };
 
-movementController.prototype.editarMovimiento = function(id, monto, fecha, motivo) {
+movementController.prototype.editarMovimiento = function(id, monto, fecha, categoria, motivo) {
     if (!this.validar(monto, fecha, motivo)){
       return false;
     }
     var movimiento = almacenamientoMovements.getById(id);
-    
+
     movimiento.monto = monto;
     movimiento.fecha = fecha;
     movimiento.motivo = motivo;
+    movimiento.categoria = categoria;
 
     almacenamientoMovements.saveById(movimiento);
 
@@ -44,7 +45,7 @@ movementController.prototype.cargarGrilla = function() {
   Retorna false si no cumple con alguna de ellas.
 */
 movementController.prototype.validar = function (monto, fecha, motivo) {
-  if (monto === '') {
+  if (monto.toString().trim() === '') {
     myApp.alert("Debe ingresar todos los campos!");
     return false;
   }
