@@ -15,22 +15,22 @@ myApp.onPageInit("categoria", function (page) {
             data.esDefault = data.esDefault == "si";
             if (!myCategoriaController.agregarCategoria(data.nombre, data.descripcion, data.esDefault)) {
                 return;
+
             }
             // y mostramos una notificacion!
             myApp.addNotification({
                 message: 'Se agregó correctamente.',
                 hold: 3000
             });
+
+            // se hace un back
+            mainView.router.back();
         }
         else {
-                myApp.addNotification({
-                message: 'Categoría existente',
-                hold: 3000
-            });
+            myApp.alert('La categoría ya existe', 'Categoría duplicada');
         }
 
-        // se hace un back
-        mainView.router.back();
+
 
 
     }
