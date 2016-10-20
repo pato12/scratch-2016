@@ -1,3 +1,6 @@
+/*
+  Inicialización de la pagina movementsEdit
+*/
 myApp.onPageInit('movementsEdit', function (page) {
   var myMovementController = new movementController();
   var myCalendario;

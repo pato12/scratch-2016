@@ -9,7 +9,8 @@ var itemReport = function (tipo, monto, saldo, id, fecha) {
 
   
 };
-// formatear la fila a un Json
+
+// formatea la fila a un Json
 itemReport.prototype.toJSON = function () {
   return {
   //  monto: (this.tipo === 'egreso' ? '($' +this.monto + ')' : '$' + this.monto),

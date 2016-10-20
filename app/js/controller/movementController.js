@@ -17,6 +17,9 @@ movementController.prototype.agregarMovimiento = function(monto, fecha, motivo, 
     return true;
 };
 
+/*
+  modifica un movimiento usando su ID
+*/
 movementController.prototype.editarMovimiento = function(id, monto, fecha, motivo) {
     if (!this.validar(monto, fecha, motivo)){
       return false;
@@ -32,13 +35,17 @@ movementController.prototype.editarMovimiento = function(id, monto, fecha, motiv
     return true;
 };
 
+/*
+  Retorna los movimientos almacenados en el localStorage 
+  para poder cargar una grilla
+*/
 movementController.prototype.cargarGrilla = function() {
     var movements = almacenamientoMovements.get();
     return movements;
 };
 
 /*
-  logica para validar que todos los campos de la  UI de ingresos y egresos
+  Logica para validar que todos los campos de la  UI de ingresos y egresos
   esten completos y sean correctos.
   Retorna true si pasa todas las validaciones.
   Retorna false si no cumple con alguna de ellas.

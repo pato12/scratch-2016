@@ -1,3 +1,6 @@
+/*
+  Tester controller que se encarga de probar los reportes de movimientos
+*/
 var myApp = {alert: function(){}};
 
 /*
