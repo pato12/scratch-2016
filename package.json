@@ -59,6 +59,7 @@
     "qunitjs": "^2.0.1"
   },
   "scripts": {
+    "postinstall": "gulp build",
     "test": "gulp test"
   },
   "dependencies": {

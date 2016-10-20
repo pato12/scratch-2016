@@ -57,16 +57,17 @@ var almacenamientoMovements = {
         }
       }
     }
-    
+
     this.save(movements);
   }
 };
 
 //definicion del constructor con sus atributos
-var movement = function(monto, fecha, motivo, tipo) {
+var movement = function(monto, fecha, motivo, categoria, tipo) {
   this.monto = monto;
   this.fecha = fecha;
   this.motivo = motivo;
+  this.categoria = categoria;
   this.tipo = tipo;
   this.id = almacenamientoMovements.getNextId();
 };
@@ -92,6 +93,7 @@ movement.prototype.toJSON = function() {
     "fecha": this.fecha,
     "motivo": this.motivo,
     "tipo": this.tipo,
+    "categoria": this.categoria,
     "id": this.id
   };
 };

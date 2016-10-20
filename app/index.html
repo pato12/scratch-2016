@@ -54,6 +54,13 @@
                                                     </div>
                                                 </a>
                                             </li>
+                                              <li>
+                                                <a href="Settings.html" class="item-link item-content">
+                                                    <div class="item-inner">
+                                                        <div class="item-title">Configuración</div>
+                                                    </div>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -68,7 +75,7 @@
     </div>
 
     <script type="text/template7" id="reporteItemTemplate">
-        <li class="swipeout" data-id="{{id}}">
+        <li class="swipeout swipeout-movement" data-id="{{id}}">
             <div class="swipeout-content">
                 <div class="row">
                   <div class="col-33">
@@ -93,6 +100,44 @@
                 <a href="#" class="action2 swipeout-delete bg-red" data-confirm="¿Seguro de eliminar?">Eliminar</a>
             </div>
         </li>
+    </script>
+
+    <script type="text/template7" id="categoriaItem">
+        <li class="swipeout swipeout-categoria" data-id="{{id}}">
+           <div class="swipeout-content">
+              <label class="label-radio item-content">
+                 <input type="radio" name="ks-media-radio" value="{{id}}" {{#if esDefault}} checked="checked" {{/if}}/>
+                 <div class="item-inner">
+                    <div class="item-title-row">
+                       <div class="item-title">{{nombre}}</div>
+                    </div>
+                    <div class="item-text">{{descripcion}}</div>
+                 </div>
+                 <div class="item-after"><i class="icon-form-radio"></i></div>
+              </label>
+           </div>
+           <div class="swipeout-actions-right">
+              <a href="#" class="action2  swipeout-delete bg-red" data-confirm="¿Seguro de eliminar?">Eliminar</a>
+           </div>
+        </li>
+
+    </script>
+      <script type="text/template7" id="categoriaItemNotRemovable">
+        <li data-id="{{id}}">
+           <div class="swipeout-content">
+              <label class="label-radio item-content">
+                 <input type="radio" name="ks-media-radio" value="{{id}}" {{#if esDefault}} checked="checked" {{/if}}/>
+                 <div class="item-inner">
+                    <div class="item-title-row">
+                       <div class="item-title">{{nombre}}</div>
+                    </div>
+                    <div class="item-text">{{descripcion}}</div>
+                 </div>
+                 <div class="item-after"><i class="icon-form-radio"></i></div>
+              </label>
+           </div>
+        </li>
+
     </script>
 
     <script type="text/javascript" src="build/js/framework7.js"></script>

@@ -1,21 +1,28 @@
 //Genera las filas que contienen los datos del reporte
-myApp.onPageInit('Movements-Report', function(page) {
-	var movements = almacenamientoMovements.get();
-	var myMovementsReportController = new movementsReportController(movements);
-	var listadoItemReports = myMovementsReportController.calcularItemsReports();
+myApp.onPageBeforeAnimation('Movements-Report', function(page) {
+	render();
 
-	var listadoView = $$('#listadoItemsReporte');
+	function render() {
+		var listado = almacenamientoMovements.get();
+		var myMovementsReportController = new movementsReportController(listado);
+		var listadoItemReports = myMovementsReportController.calcularItemsReports();
 
-	for (var i in listadoItemReports) {
-		var item = listadoItemReports[i];
-		var html = Template7.templates.reporteItemTemplate(item.toJSON());
+		var listadoView = $$('#listadoItemsReporte');
 
-		listadoView.append(html);
+		listadoView.find('li').remove();
+
+		for (var i in listadoItemReports) {
+			var item = listadoItemReports[i];
+			var html = Template7.templates.reporteItemTemplate(item.toJSON());
+
+			listadoView.append(html);
+		}
+
+		//Comienza el proceso de borrado de un movimiento cuando se preciona el boton "deleted"
+		$$('.swipeout-movement').on('deleted', function(e) {
+			var id = $$(this).data('id');
+			myMovementsReportController.eliminarMovimiento(id);
+			render();
+		});
 	}
-
-//Comienza el proceso de borrado de un movimiento cuando se preciona el boton "deleted"
-	$$('.swipeout').on('deleted', function(e) {
-		var id = $$(this).data('id');
-		myMovementsReportController.eliminarMovimiento(id);
-	});
 });
