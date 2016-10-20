@@ -1,4 +1,4 @@
-//logica para guardar y recuperar movimientos
+//logica para efectuar operaciones sobre el localStorage de movimientos
 var almacenamientoMovements = {
   save: function(json) {
     localStorage.Movements = JSON.stringify(json);

@@ -1,5 +1,12 @@
+/*
+  Test controller que se encarga de probar el buen funcionamiento del controller de movimientos
+*/
 var myApp = {alert: function(){}};
 
+/*
+  Quiero controlar que:
+  -se almacene un movimiento valido
+*/
 QUnit.test( "testing al movementController", function( assert ) {
   var controller = new movementController();
   var resultado = controller.agregarMovimiento(-10, new Date().toString(), 'a', 1, 'tipo');
