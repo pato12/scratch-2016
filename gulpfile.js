@@ -198,10 +198,10 @@
     gulp.task('build-js', function () {
       return gulp.src(['app/js/main.js', 'app/js/**/*.js'])
         .pipe(sourcemaps.init())
-        .pipe(concat('bundle-view.js'))
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(uglify())
+        .pipe(concat('bundle-view.js'))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('app/build'))
         .pipe(connect.reload());

@@ -9,30 +9,34 @@
 
     <!-- filtros de periodo -->
     <div class="page-content">
+        <div id="chart" style="height: 80%;">
+            <svg style="height: 80%;"></svg>
+        </div>
+
         <form id="form-movement" class="list-block">
             <ul>
 
-              <li>
-					<div class="item-content">
-						<div class="item-inner">
-							<div class="item-title floating-label">Fecha de inicio</div>
-							<div class="item-input">
-								<input name="fecha" id="calendario-input" readonly type="text">
-							</div>
-						</div>
-					</div>
-				</li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title floating-label">Fecha de inicio</div>
+                            <div class="item-input">
+                                <input name="fecha" id="calendario-input-inicio" readonly type="text">
+                            </div>
+                        </div>
+                    </div>
+                </li>
 
-               <li>
-					<div class="item-content">
-						<div class="item-inner">
-							<div class="item-title floating-label">Periodo</div>
-							<div class="item-input">
-								<input name="monto" type="number">
-							</div>
-						</div>
-					</div>
-				</li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title floating-label">Periodo</div>
+                            <div class="item-input">
+                                <input name="monto" type="number">
+                            </div>
+                        </div>
+                    </div>
+                </li>
 
             </ul>
         </form>
