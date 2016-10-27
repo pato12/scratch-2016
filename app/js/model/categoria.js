@@ -96,6 +96,16 @@ var almacenamientoCategorias = {
 
     return null;
   },
+  /*
+    Comprueba si se agrego una categoria. Devuelve true si se agrego y false en caso contrario
+  */
+  seAgregoCategoria: function (nombre) {
+    return !!this.existeCategoria(nombre);
+  },
+  /* 
+    Comprueba si existe una categoria del nombre pasado por parametro.
+    Si existe, devuelve la categoria. Si no existe, devuelve null.
+  */
   existeCategoria: function (nombre) {
     var categorias = this.get();
     
@@ -107,6 +117,10 @@ var almacenamientoCategorias = {
     }
     return null;
   },
+  /* 
+    Comprueba si existe una categoria del nombre pasado por parametro.
+    Si existe, devuelve la categoria. Si no existe, crea la categoria y la devuelve tambien.
+  */
   comprobarCategoria: function (nombre) {
     var categorias = this.get();
 
@@ -125,7 +139,11 @@ var almacenamientoCategorias = {
       return { nuevo: false, categoria: catExistente };
 
     }
-
-
+  },
+  /* 
+    Devuelve la cantidad de categorias
+  */
+  getCantidadCategorias: function() {
+    return this.get().length;
   }
 };
