@@ -3,6 +3,7 @@ myApp.onPageInit('GraficoGastosPorCategoria', function (page) {
   var myCalendario;
   var controlador;
   var chart;
+  var fecha;
 
 
   controlador = new reporteGraficoController();
@@ -18,15 +19,10 @@ myApp.onPageInit('GraficoGastosPorCategoria', function (page) {
     toolbarCloseText: 'Hecho'
   });
 
-  //seteo fecha actual al calendario por default
-  myCalendario.setValue([new Date()]);
+  fecha = new Date(Date.now() - 3 * 7 * 24 * 60 * 60 * 1000);
 
-
-  // chartData.datum(result.data).transition().duration(500).call(chart); se actualiza
-
-
-
-
+  //seteo fecha anterior al calendario por default
+  myCalendario.setValue([fecha]);
 
   nv.addGraph(function () {
     chart = nv.models.stackedAreaChart()
@@ -46,7 +42,7 @@ myApp.onPageInit('GraficoGastosPorCategoria', function (page) {
       return d3.time.format('%d/%m/%y')(new Date(d));
     });
 
-    //chart.yAxis.tickFormat(d3.format('$,.2f'));
+    chart.yAxis.tickFormat(d3.format('$,.2f'));
 
     d3.select('#chart svg').datum(toDataChart()).call(chart);
 
@@ -56,12 +52,20 @@ myApp.onPageInit('GraficoGastosPorCategoria', function (page) {
   });
 
 
+  $$('#filtrar-btn').on('click', filtrar);
+
+  function filtrar() {
+    d3.select('#chart svg').datum(toDataChart()).transition().duration(500).call(chart);
+  }
 
   function toDataChart() {
-    var movimientos = almacenamientoMovements.get();
-    var filtrados = controlador.crearArrayDatosNVD3(movimientos.ingresos.concat(movimientos.egresos));
+    var movements = almacenamientoMovements.get();
+    var movimientos = movements.ingresos.concat(movements.egresos);
+    var form = myApp.formToJSON('#form-filter');
+    var filtrados = controlador.filtrarPorPeriodo(movimientos, form.fecha, form.periodo);
+    var resultados = controlador.crearArrayDatosNVD3(filtrados);
 
-    return filtrados;
+    return resultados;
   }
 
 });

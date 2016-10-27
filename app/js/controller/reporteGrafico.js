@@ -5,10 +5,10 @@ var reporteGraficoController = function () {
 // filtra todos los movimientos de acuerdo al periodo indicado
 reporteGraficoController.prototype.filtrarPorPeriodo = function (movimientos, fechaInicio, periodo) {
   var fecha_inicio = new Date(fechaInicio).getTime();
-  var fecha_final = fecha_inicio + periodo * 60 * 60 * 24 * 1000;
+  var fecha_final = fecha_inicio + parseInt(periodo) * 7 * 60 * 60 * 24 * 1000;
 
   return movimientos.filter(function(movimiento) {
-    var fecha = new Date(movimiento.fecha);
+    var fecha = Date.parse(movimiento.fecha);
 
     return fecha_inicio <= fecha && fecha <= fecha_final;
   });
@@ -18,6 +18,11 @@ reporteGraficoController.prototype.filtrarPorPeriodo = function (movimientos, fe
 reporteGraficoController.prototype.agruparMovimientosPorCategoria = function(movimientos) {
     var reducidos = {};
     var days = [];
+    var contadores = {};
+
+    movimientos = movimientos.sort(function(a, b){
+      return new Date(a.fecha).getTime() - new Date(b.fecha).getTime();
+    });
 
     for(var i in movimientos) {
         var movimiento = movimientos[i];
@@ -29,6 +34,7 @@ reporteGraficoController.prototype.agruparMovimientosPorCategoria = function(mov
 
         if(!(movimiento.categoria in reducidos)) {
           reducidos[movimiento.categoria] = {};
+          contadores[movimiento.categoria] = 0;
         }
 
         if(!(fecha in reducidos[movimiento.categoria])) {
@@ -44,6 +50,9 @@ reporteGraficoController.prototype.agruparMovimientosPorCategoria = function(mov
 
         if(!(day in reducidos[j]))
           reducidos[j][day] = 0;
+
+        reducidos[j][day] += contadores[j];
+        contadores[j] = reducidos[j][day];
       }
     }
 
@@ -53,7 +62,6 @@ reporteGraficoController.prototype.agruparMovimientosPorCategoria = function(mov
 reporteGraficoController.prototype.crearArrayDatosNVD3 = function (movimientos) {
   var resultados = this.agruparMovimientosPorCategoria(movimientos);
   var final = [];
-
 
   for(var id_categoria in resultados) {
     var categoria = almacenamientoCategorias.getById(id_categoria);

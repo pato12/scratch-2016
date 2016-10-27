@@ -13,9 +13,8 @@
             <svg style="height: 80%;"></svg>
         </div>
 
-        <form id="form-movement" class="list-block">
+        <form id="form-filter" class="list-block">
             <ul>
-
                 <li>
                     <div class="item-content">
                         <div class="item-inner">
@@ -30,15 +29,19 @@
                 <li>
                     <div class="item-content">
                         <div class="item-inner">
-                            <div class="item-title floating-label">Periodo</div>
+                            <div class="item-title floating-label">Cantidad de semanas</div>
                             <div class="item-input">
-                                <input name="monto" type="number">
+                                <input name="periodo" type="number" value="4" min="1">
                             </div>
                         </div>
                     </div>
                 </li>
-
             </ul>
+            <div class="content-block">
+        			<div class="row">
+        				<p class="buttons-row col-50"><a href="#" id="filtrar-btn" class="button button-big button-fill button-raised color-teal">Filtrar</a></p>
+        			</div>
+        		</div>
         </form>
 
 
