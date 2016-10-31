@@ -6,7 +6,7 @@ categoriaController.prototype.agregarCategoria = function(nombre, descripcion, e
     if(this.validar(nombre)){
         var newCategoria = new categoria(nombre, descripcion, esDefault);
         newCategoria.save();
-        return true;
+        return newCategoria;
     }
     return false;
 };
