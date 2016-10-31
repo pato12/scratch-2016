@@ -59,6 +59,8 @@ reporteGraficoController.prototype.agruparMovimientosPorCategoria = function(mov
     return reducidos;
 };
 
+
+//crea un array de datos de gastos por categoria y por dia para que luego lo consuma la libreria
 reporteGraficoController.prototype.crearArrayDatosNVD3 = function (movimientos) {
   var resultados = this.agruparMovimientosPorCategoria(movimientos);
   var final = [];
@@ -80,6 +82,7 @@ reporteGraficoController.prototype.crearArrayDatosNVD3 = function (movimientos) 
   return final;
 };
 
+// pasa de una fecha en string a timespan a las 00:00
 var timespanDay = function(fecha) {
     var d = new Date(fecha);
     d.setHours(0);
