@@ -31,7 +31,7 @@ QUnit.test( "testing al reporteGraficoController", function( assert ) {
   var fecha2 = timespanDay (new Date(2016, 11, 8));
 
   var resultadoEsperado = [
-                            {key: "salario", values: [[fecha1, 30] [fecha2, 40]]},
+                            {key: "salario", values: [[fecha1, 30], [fecha2, 40]]},
                             {key: "regalo", values: [[fecha1, 60]]} 
                           ];
 
