@@ -54,7 +54,7 @@ QUnit.test( "testing al reporteGraficoController", function( assert ) {
     setTimeout((function(){
       var movement1 = new movement(30, new Date(2016, 11, 7).toString(), "motivo blabla", c1.id, "ingreso");
       var movement2 = new movement(100, new Date(2016, 11, 7).toString(), "motivo blabla", c2.id, "ingreso");
-      var movement3 = new movement(40, new Date(2016, 11, 7).toString(), "motivo blabla", c2.id, "egreso");
+      var movement3 = new movement(40, new Date(2016, 11, 8).toString(), "motivo blabla", c2.id, "egreso");
       var movement4 = new movement(40, new Date(2016, 11, 8).toString(), "motivo distinto", c1.id, "egreso");
 
       //array ordenado
@@ -69,12 +69,11 @@ QUnit.test( "testing al reporteGraficoController", function( assert ) {
       var fecha2 = timespanDay (new Date(2016, 11, 8));
 
       var resultadoEsperado = [
-                                {key: "salario", values: [[fecha1, 30], [fecha2, 40]]},
-                                {key: "regalo", values: [[fecha1, 60]]}
+                                {key: "salario", values: [[fecha1, 30], [fecha2, -10]]},
+                                {key: "regalo", values: [[fecha1, 100], [fecha2, 60]]}
                               ];
-      var resul = resultadoEsperado;
-      //assert.deepEqual(resultadoObtenido, resultadoEsperado, "Los datos se agrupan correctamente por categoria y por dia");
-      assert.deepEqual(resul, resultadoEsperado, "Los datos se agrupan correctamente por categoria y por dia");
+
+      assert.deepEqual(resultadoObtenido, resultadoEsperado, "Los datos se agrupan correctamente por categoria y por dia");
       done();
     }).bind(this), 300);
 });
