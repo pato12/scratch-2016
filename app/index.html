@@ -9,6 +9,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="theme-color" content="#2196f3">
     <title>Scratch</title>
+
+    <link rel="stylesheet" href="lib/nvd3/nv.d3.min.css">
+
     <link rel="stylesheet" href="build/css/framework7.material.css">
     <link rel="stylesheet" href="build/css/framework7.material.colors.css">
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700" rel="stylesheet" type="text/css">
@@ -54,13 +57,21 @@
                                                     </div>
                                                 </a>
                                             </li>
-                                              <li>
+                                            <li>
+                                                <a href="GraficoGastosPorCategoria.html" class="item-link item-content">
+                                                    <div class="item-inner">
+                                                        <div class="item-title">Gráfico de gastos por categorías</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a href="Settings.html" class="item-link item-content">
                                                     <div class="item-inner">
                                                         <div class="item-title">Configuración</div>
                                                     </div>
                                                 </a>
                                             </li>
+
                                         </ul>
                                     </div>
                                 </div>
@@ -122,7 +133,7 @@
         </li>
 
     </script>
-      <script type="text/template7" id="categoriaItemNotRemovable">
+    <script type="text/template7" id="categoriaItemNotRemovable">
         <li data-id="{{id}}">
            <div class="swipeout-content">
               <label class="label-radio item-content">
@@ -139,6 +150,9 @@
         </li>
 
     </script>
+
+    <script type="text/javascript" src="lib/d3/d3.min.js"></script>
+    <script type="text/javascript" src="lib/nvd3/nv.d3.min.js"></script>
 
     <script type="text/javascript" src="build/js/framework7.js"></script>
     <script type="text/javascript" src="build/bundle-core.js"></script>

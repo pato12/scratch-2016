@@ -1,0 +1,50 @@
+<div data-page="GraficoGastosPorCategoria" class="page">
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left"><a href="index.html" class="back link icon-only"><i class="icon icon-back"></i></a></div>
+            <div class="center" id="movimientoTitulo">Gráfico de gastos por Categoría</div>
+        </div>
+    </div>
+
+    <!-- filtros de periodo -->
+    <div class="page-content">
+        <div id="chart" style="height: 80%;">
+            <svg style="height: 80%;"></svg>
+        </div>
+
+        <form id="form-filter" class="list-block">
+            <ul>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title floating-label">Fecha de inicio</div>
+                            <div class="item-input">
+                                <input name="fecha" id="calendario-input-inicio" readonly type="text">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title floating-label">Cantidad de semanas</div>
+                            <div class="item-input">
+                                <input name="periodo" type="number" value="4" min="1">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="content-block">
+        			<div class="row">
+        				<p class="buttons-row col-50"><a href="#" id="filtrar-btn" class="button button-big button-fill button-raised color-teal">Filtrar</a></p>
+        			</div>
+        		</div>
+        </form>
+
+
+    </div>
+
+</div>

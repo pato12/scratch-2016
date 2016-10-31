@@ -35,7 +35,8 @@ movementsReportController.prototype.calcularItemsReports = function() {
 
   return listadoItemReport;
 };
-// Elimina un movimiento
-movementsReportController.prototype.eliminarMovimiento = function(id) {
+
+// Elimina un movimiento por ID y redirecciona al index.html
+movementsReportController.prototype.eliminarMovimiento = function (id) {
   almacenamientoMovements.deleteById(id);
 };

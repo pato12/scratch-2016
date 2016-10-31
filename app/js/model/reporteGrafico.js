@@ -1,4 +1,3 @@
-
 //Constructor de UNA fila de la tabla de reportes de gastos
 var itemReport = function (tipo, monto, saldo, id, fecha) {
   this.monto = parseFloat(monto).toFixed(2);
@@ -7,7 +6,7 @@ var itemReport = function (tipo, monto, saldo, id, fecha) {
   this.tipo = tipo;
   this.id = id;
 
-  
+
 };
 
 // formatea la fila a un Json
@@ -21,4 +20,10 @@ itemReport.prototype.toJSON = function () {
     saldoNegativo: this.saldo < 0,
     id: this.id
   };
+};
+
+//Constructor
+var reporteGrafico = function() {
+    this.movements = almacenamientoMovements.get();
+    this.crearArrayDatosNVD3(movements);
 };
