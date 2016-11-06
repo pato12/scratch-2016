@@ -14,7 +14,7 @@ movementController.prototype.agregarMovimiento = function(monto, fecha, motivo, 
     }
     var movimiento = new movement(monto, fecha, motivo, categoria, tipo);
     movimiento.save();
-    return true;
+    return movimiento;
 };
 
 /*

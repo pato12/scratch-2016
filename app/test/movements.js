@@ -48,7 +48,7 @@ QUnit.test( "testing al movementController al modificar un movimiento", function
 
 /*
   Quiero controlar que:
-  -se modifique correctamente un movimiento
+  -se elimine correctamente un movimiento
 */
 QUnit.test( "testing al movementController al eliminar un movimiento", function( assert ) {
   localStorage.clear();

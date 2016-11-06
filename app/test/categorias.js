@@ -35,3 +35,21 @@ QUnit.test( "testing para validar que se ingresen categorias nuevas", function( 
 
   assert.notEqual(cantidad2,cantidad1, "El test tiene que pasar cuando se agregan nuevas categorias con distinto nombre" );
 });
+
+/*
+    Quiero controlar que:
+    -se elimine correctamente una categoria
+*/
+QUnit.test( "testing para validar que se elimine correctamente una categoria", function( assert ) {
+  localStorage.clear();
+
+  almacenamientoCategorias.comprobarCategoria("prueba");
+  almacenamientoCategorias.comprobarCategoria("prueba2");
+  almacenamientoCategorias.comprobarCategoria("prueba3");
+  console.log(almacenamientoCategorias.get());
+  almacenamientoCategorias.deleteById(3);
+  var cantidadDespuesDeEliminar = almacenamientoCategorias.getCantidadCategorias();
+  var cantidadCorrecta = 3; // 1(categoria general) + 3 categorias ingresadas - 1 categoria eliminada = 3
+  assert.equal(cantidadDespuesDeEliminar, cantidadCorrecta, "El test tiene que pasar cuando no se repiten las categorias con el mismo nombre" );
+});
+
