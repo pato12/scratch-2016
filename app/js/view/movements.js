@@ -37,7 +37,7 @@ myApp.onPageInit('movements', function (page) {
       }
 
       for (var i = 0; i < categorias.length; i++) {
-        if (categorias[i].nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) results.push(categorias[i].nombre);
+        if (categorias[i].nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0 && categorias[i].tipo == page.query.tipo) results.push(categorias[i].nombre);
       }
 
       render(results);
@@ -55,7 +55,7 @@ myApp.onPageInit('movements', function (page) {
   function guardar() {
     // obtengo el json del form
     var data = myApp.formToJSON('#form-movement');
-    var comprobarCategoria = almacenamientoCategorias.comprobarCategoria(data.categoria);
+    var comprobarCategoria = almacenamientoCategorias.comprobarCategoria(data.categoria, page.query.tipo);
 
     // la fecha del calendario se obtiene con .value y es un array de int en timespan
     // lo parseamos y lo hacemos string

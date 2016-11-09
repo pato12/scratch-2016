@@ -2,9 +2,9 @@ var categoriaController = function() {
 
 };
 
-categoriaController.prototype.agregarCategoria = function(nombre, descripcion, esDefault) {
+categoriaController.prototype.agregarCategoria = function(nombre, descripcion, esDefault, tipo) {
     if(this.validar(nombre)){
-        var newCategoria = new categoria(nombre, descripcion, esDefault);
+        var newCategoria = new categoria(nombre, descripcion, esDefault, tipo);
         newCategoria.save();
         return newCategoria;
     }

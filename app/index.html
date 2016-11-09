@@ -117,7 +117,7 @@
         <li class="swipeout swipeout-categoria" data-id="{{id}}">
            <div class="swipeout-content">
               <label class="label-radio item-content">
-                 <input type="radio" name="ks-media-radio" value="{{id}}" {{#if esDefault}} checked="checked" {{/if}}/>
+                 <input type="radio" name="ks-media-radio{{tipo}}" value="{{id}}" {{#if esDefault}} checked="checked" {{/if}}/>
                  <div class="item-inner">
                     <div class="item-title-row">
                        <div class="item-title">{{nombre}}</div>
@@ -137,7 +137,7 @@
         <li data-id="{{id}}">
            <div class="swipeout-content">
               <label class="label-radio item-content">
-                 <input type="radio" name="ks-media-radio" value="{{id}}" {{#if esDefault}} checked="checked" {{/if}}/>
+                 <input type="radio" name="ks-media-radio{{tipo}}" value="{{id}}" {{#if esDefault}} checked="checked" {{/if}}/>
                  <div class="item-inner">
                     <div class="item-title-row">
                        <div class="item-title">{{nombre}}</div>
