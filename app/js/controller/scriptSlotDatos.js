@@ -18,17 +18,17 @@ scriptSlotDatos.prototype.crearSlot = function() {
             tipo = "ingreso";
         else
             tipo = "egreso";
-        
+
         //genero numeros aleatorios entre 1 y 7 que van a simular categorias
         //ej: categoria1,...,categoria3,..., categoria7
         var nombreCategoria = Math.round((6*Math.random())+1);
-        var categoria = controladorCategorias.agregarCategoria("categoria"+nombreCategoria, "algunaDescripcion", false, tipo);
+        var categoria = almacenamientoCategorias.getByName("categoria"+nombreCategoria, tipo);
         if (categoria === null) {
-            categoria = almacenamientoCategorias.getByName("categoria"+nombreCategoria);
+          categoria = controladorCategorias.agregarCategoria("categoria"+nombreCategoria, "algunaDescripcion", false, tipo);
         }
 
         var montoAleatorio = Math.round(Math.random()*10000)/100;
         var fechaAleatoria = new Date(Date.now() + 3600 * 1000 * 24 * 7 * Math.random() * (Math.random() > 0.5? 1 : -1));
-        controladorMovimientos.agregarMovimiento(montoAleatorio, fechaAleatoria, "motivo"+i, categoria.id, tipo); 
+        controladorMovimientos.agregarMovimiento(montoAleatorio, fechaAleatoria, "motivo"+i, categoria.id, tipo);
     }
 };
