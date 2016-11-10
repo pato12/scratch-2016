@@ -75,7 +75,7 @@ reporteGraficoController.prototype.crearArrayDatosNVD3 = function (movimientos) 
     });
 
     final.push({
-      key: categoria.nombre + '(' + categoria.id +  ')',
+      key: categoria.nombre,
       values: values
     });
   }
@@ -110,6 +110,9 @@ var crearPareto = function (reducidos) {
   var mergear = [];
   var total = 0.0;
   var porcentaje = 0;
+
+  if(Object.keys(reducidos).length < 8)
+    return reducidos;
 
   for(var i in reducidos) {
     total += reducidos[i][Object.keys(reducidos[i]).pop()];
