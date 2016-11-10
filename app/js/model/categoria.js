@@ -31,7 +31,7 @@ var almacenamientoCategorias = {
     localStorage.Categorias = JSON.stringify(json);
   },
   get: function () {
-    var defaultCategoria = [{ nombre: 'General', descripcion: 'Categoria general ingreso', esDefault: true, id: 1, tipo: 'ingreso'}, { nombre: 'General', descripcion: 'Categoria general egreso', esDefault: true, id: 2, tipo: 'egreso'}];
+    var defaultCategoria = [{ nombre: 'General Ingreso', descripcion: 'Categoria general ingreso', esDefault: true, id: 1, tipo: 'ingreso'}, { nombre: 'General Egreso', descripcion: 'Categoria general egreso', esDefault: true, id: 2, tipo: 'egreso'}];
     var jsonText = localStorage.Categorias || '[]';
     var parse = JSON.parse(jsonText);
 
@@ -61,12 +61,12 @@ var almacenamientoCategorias = {
 
     return null;
   },
-  getByName: function (nombre) {
+  getByName: function (nombre, tipo) {
     var categorias = this.get();
     var listado = categorias;
 
     for (var i in listado) {
-      if (listado[i].nombre == nombre)
+      if (listado[i].nombre == nombre && listado[i].tipo == tipo)
         return listado[i];
     }
 
