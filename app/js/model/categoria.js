@@ -61,6 +61,17 @@ var almacenamientoCategorias = {
 
     return null;
   },
+  getByName: function (nombre) {
+    var categorias = this.get();
+    var listado = categorias;
+
+    for (var i in listado) {
+      if (listado[i].nombre == nombre)
+        return listado[i];
+    }
+
+    return null;
+  },
   saveById: function (categoria) {
     if (!categoria.id) {
       return false;
