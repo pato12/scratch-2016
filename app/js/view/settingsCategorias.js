@@ -1,6 +1,7 @@
 myApp.onPageBeforeAnimation('SettingsCategorias', function (page) {
   render();
 
+  //Busca las categorías guardadas y las muestra
   function render() {
     var listado = almacenamientoCategorias.get();
     var listadoViewIngresos = $$('#listadoCategoriasIngresos');
@@ -51,7 +52,7 @@ myApp.onPageBeforeAnimation('SettingsCategorias', function (page) {
     $$('#listadoCategoriasEgresos input, #listadoCategoriasIngresos input').on('change', cambiarDefault);
     $$('.swipeout-categoria').on('deleted', borrarCategoria);
   }
-
+//Cambia el default de una historia
   function cambiarDefault() {
     var categoriaId = $$(this).val();
     var categorias = almacenamientoCategorias.get();
@@ -79,7 +80,7 @@ myApp.onPageBeforeAnimation('SettingsCategorias', function (page) {
 
     almacenamientoMovements.save(movements);
   }
-
+//Borra la categoría seleccionada
   function borrarCategoria(e) {
     var id = $$(this).data('id');
     var categoria = almacenamientoCategorias.getById(id);
