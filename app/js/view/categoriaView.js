@@ -10,13 +10,15 @@ myApp.onPageInit("categoria", function (page) {
         // obtengo el json del form
         var data = myApp.formToJSON('#form-categoria');
 
-        if (!almacenamientoCategorias.existeCategoria(data.nombre)) {
+        if (!almacenamientoCategorias.existeCategoria(data.nombre, data.tipo)) {
+
             // y agrego la categoria
             data.esDefault = data.esDefault == "si";
-            if (!myCategoriaController.agregarCategoria(data.nombre, data.descripcion, data.esDefault)) {
-                return;
 
+            if (!myCategoriaController.agregarCategoria(data.nombre, data.descripcion, data.esDefault, data.tipo)) {
+                return;
             }
+
             // y mostramos una notificacion!
             myApp.addNotification({
                 message: 'Se agregó correctamente.',

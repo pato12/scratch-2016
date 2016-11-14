@@ -1,7 +1,5 @@
 /*constructor del controller*/
 var movementController = function() {
-    //this.movementView = new movementView();
-    //this.initialize();
 };
 
 /*logica que agrega un movimiento usando al modelo.
@@ -14,7 +12,7 @@ movementController.prototype.agregarMovimiento = function(monto, fecha, motivo, 
     }
     var movimiento = new movement(monto, fecha, motivo, categoria, tipo);
     movimiento.save();
-    return true;
+    return movimiento;
 };
 
 /*
@@ -37,7 +35,7 @@ movementController.prototype.editarMovimiento = function(id, monto, fecha, categ
 };
 
 /*
-  Retorna los movimientos almacenados en el localStorage 
+  Retorna los movimientos almacenados en el localStorage
   para poder cargar una grilla
 */
 movementController.prototype.cargarGrilla = function() {

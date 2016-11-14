@@ -1,19 +1,22 @@
-var categoria = function (nombre, descripcion, esDefault) {
+// variable que inicializa la categoría
+var categoria = function (nombre, descripcion, esDefault, tipo) {
   this.nombre = nombre;
   this.descripcion = descripcion;
   this.esDefault = esDefault;
+  this.tipo = tipo;
   this.id = almacenamientoCategorias.getNextId();
 };
-
+// Parsea la categoría a un JSON
 categoria.prototype.toJSON = function () {
   return {
     "nombre": this.nombre,
     "descripcion": this.descripcion,
     "esDefault": this.esDefault,
-    "id": this.id
+    "id": this.id,
+    "tipo": this.tipo
   };
 };
-
+// Persiste la categoría
 categoria.prototype.save = function () {
   var jsonCategoria = this.toJSON();
   var categorias = almacenamientoCategorias.get();
@@ -23,22 +26,26 @@ categoria.prototype.save = function () {
   almacenamientoCategorias.save(categorias);
 };
 
-categoria.default = { nombre: 'General', descripcion: 'Categoria general', esDefault: true, id: -1 };
 
 var almacenamientoCategorias = {
   save: function (json) {
     localStorage.Categorias = JSON.stringify(json);
   },
+  //retorna la categoría
   get: function () {
-    var defaultCategoria = [categoria.default];
+    var defaultCategoria = [{ nombre: 'General Ingreso', descripcion: 'Categoria general ingreso', esDefault: true, id: 1, tipo: 'ingreso'}, { nombre: 'General Egreso', descripcion: 'Categoria general egreso', esDefault: true, id: 2, tipo: 'egreso'}];
     var jsonText = localStorage.Categorias || '[]';
     var parse = JSON.parse(jsonText);
 
-    if (!parse.length) return defaultCategoria;
+    if (!parse.length) {
+      this.save(defaultCategoria);
+      return defaultCategoria;
+    }
     else return parse;
   },
+  //Retorna la proxima categoría en función a un ID
   getNextId: function () {
-    var lastId = localStorage.CategoriasId || '1';
+    var lastId = localStorage.CategoriasId || '2';
 
     lastId = parseInt(lastId) + 1;
 
@@ -46,6 +53,7 @@ var almacenamientoCategorias = {
 
     return lastId;
   },
+  //retorna la categoría con el ID que se envía por parámetro
   getById: function (id) {
     var categorias = this.get();
     var listado = categorias;
@@ -57,6 +65,19 @@ var almacenamientoCategorias = {
 
     return null;
   },
+  // Retorna la categoría con el nombre enviado por parámetro
+  getByName: function (nombre, tipo) {
+    var categorias = this.get();
+    var listado = categorias;
+
+    for (var i in listado) {
+      if (listado[i].nombre == nombre && listado[i].tipo == tipo)
+        return listado[i];
+    }
+
+    return null;
+  },
+  //Guarda la categoría con el ID dado
   saveById: function (categoria) {
     if (!categoria.id) {
       return false;
@@ -73,6 +94,7 @@ var almacenamientoCategorias = {
 
     this.save(listado);
   },
+  //Borra la categoría con el ID dado
   deleteById: function (id) {
     var categorias = this.get();
 
@@ -85,11 +107,12 @@ var almacenamientoCategorias = {
 
     this.save(categorias);
   },
-  getDefault: function () {
+  // Retorna la categoría Default
+  getDefault: function (tipo) {
     var categorias = this.get();
 
     for (var i in categorias) {
-      if (categorias[i].esDefault) {
+      if (categorias[i].esDefault && categorias[i].tipo == tipo) {
         return categorias[i];
       }
     }
@@ -99,39 +122,42 @@ var almacenamientoCategorias = {
   /*
     Comprueba si se agrego una categoria. Devuelve true si se agrego y false en caso contrario
   */
-  seAgregoCategoria: function (nombre) {
-    return !!this.existeCategoria(nombre);
+  //Valida que se haya agregado la categoria correctamente
+  seAgregoCategoria: function (nombre, tipo) {
+    return !!this.existeCategoria(nombre, tipo);
   },
-  /* 
+  /*
     Comprueba si existe una categoria del nombre pasado por parametro.
     Si existe, devuelve la categoria. Si no existe, devuelve null.
   */
-  existeCategoria: function (nombre) {
+  //Retorna la categoría si existe
+  existeCategoria: function (nombre, tipo) {
     var categorias = this.get();
-    
+
     for (var i in categorias) {
-      if (categorias[i].nombre.toLowerCase() == nombre.toLowerCase().trim()) {
+      if (categorias[i].nombre.toLowerCase() == nombre.toLowerCase().trim() && categorias[i].tipo == tipo) {
         return categorias[i];
       }
-
     }
+
     return null;
   },
-  /* 
+  /*
     Comprueba si existe una categoria del nombre pasado por parametro.
     Si existe, devuelve la categoria. Si no existe, crea la categoria y la devuelve tambien.
   */
-  comprobarCategoria: function (nombre) {
+  //Comprueba que exista la categoría y si no, la crea y la guarda
+  comprobarCategoria: function (nombre, tipo) {
     var categorias = this.get();
 
     if (nombre.trim() == '') {
-      return { nuevo: false, categoria: this.getDefault() };
+      return { nuevo: false, categoria: this.getDefault(tipo) };
     }
 
-    var catExistente = this.existeCategoria(nombre);
+    var catExistente = this.existeCategoria(nombre, tipo);
 
     if (catExistente === null) {
-      var cat = new categoria(nombre.trim(), '', false);
+      var cat = new categoria(nombre.trim(), '', false, tipo);
       cat.save();
       return { nuevo: true, categoria: cat.toJSON() };
 
@@ -140,7 +166,7 @@ var almacenamientoCategorias = {
 
     }
   },
-  /* 
+  /*
     Devuelve la cantidad de categorias
   */
   getCantidadCategorias: function() {

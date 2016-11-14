@@ -24,6 +24,7 @@ myApp.onPageInit('GraficoGastosPorCategoria', function (page) {
   //seteo fecha anterior al calendario por default
   myCalendario.setValue([fecha]);
 
+  // creamos el grafico
   nv.addGraph(function () {
     chart = nv.models.stackedAreaChart()
       .useInteractiveGuideline(true)
@@ -39,11 +40,16 @@ myApp.onPageInit('GraficoGastosPorCategoria', function (page) {
 
 
     chart.xAxis.tickFormat(function (d) {
+      // se setea el formato de fecha
       return d3.time.format('%d/%m/%y')(new Date(d));
     });
 
+
+    // setea el formato de moneada
     chart.yAxis.tickFormat(d3.format('$,.2f'));
 
+
+    // agregamos el grafico
     d3.select('#chart svg').datum(toDataChart()).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -58,6 +64,8 @@ myApp.onPageInit('GraficoGastosPorCategoria', function (page) {
     d3.select('#chart svg').datum(toDataChart()).transition().duration(500).call(chart);
   }
 
+
+  // filtra los movimientos y genera el objeto final
   function toDataChart() {
     var movements = almacenamientoMovements.get();
     var movimientos = movements.ingresos.concat(movements.egresos);
