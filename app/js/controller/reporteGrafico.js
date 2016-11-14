@@ -93,6 +93,7 @@ var timespanDay = function(fecha) {
     return d.getTime();
 };
 
+// funcion auxiliar para calcular el saldo acumulado
 var reducir = function(cat) {
   var days = Object.keys(cat).sort();
 
@@ -105,6 +106,7 @@ var reducir = function(cat) {
   return cat;
 };
 
+// crea el objeto teniendo encuenta el principio de pareto
 var crearPareto = function (reducidos) {
   var resultados = {};
   var mergear = [];
